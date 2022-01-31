@@ -5,9 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FindTeam extends BaseTest {
 
@@ -28,26 +31,22 @@ public class FindTeam extends BaseTest {
     private String playerStatsSubTabAccessibilityId = "Player Stats";
 
 
-    //tbd values to get from test data
-    private String teamName = "Arizona Cardinals";
-    private String playerStatsSubTabExpectedResults = "K. Murray";
-
-
-
     /* Test Method to find a team from the main score landing page
      * Test Data Required:
      *      String: Team name
-     *      String: Expected result on the player stats Sub tab
+     *      String: Expected result on the player stats Sub tab - Player name
      */
-    @Test
-    public void findTeam() throws InterruptedException {
-        System.out.println("Starting Find Team Test");
+    @Test(dataProviderClass = CSVDataProvider.class, dataProvider = "findTeamTestData")
+    public void findTeam(Map<String,String> dataMap) throws InterruptedException {
 
+        String teamName = dataMap.get("teamName");
+        String expectedPlayerName = dataMap.get("playerName");
+
+        System.out.println("Starting Find Team Test with Team Name: " + teamName + " and expected Player Name: " + expectedPlayerName);
 
         driver = getDriver(); //Get driver from our BaseTest Class
         //WebdriverWait object to perform explicit waits
         wait = new WebDriverWait(driver, 50);
-
 
         //Splash pages section
 
@@ -68,9 +67,8 @@ public class FindTeam extends BaseTest {
 
         //Click first team on list - specifically the star icon
         wait.until(ExpectedConditions.elementToBeClickable(By.id(favoriteTeamFirstElementViewGroupId)));
-        List<MobileElement> favoriteTeamsList = driver.findElementsById(favoriteTeamFirstElementViewGroupId);
+        ArrayList<MobileElement> favoriteTeamsList = new ArrayList<>(driver.findElementsById(favoriteTeamFirstElementViewGroupId));
         favoriteTeamsList.get(0).click();
-
 
         //Click Continue button
         wait.until(ExpectedConditions.elementToBeClickable(By.id(continueButtonId)));
@@ -108,19 +106,18 @@ public class FindTeam extends BaseTest {
 
         Assert.assertEquals(teamNameTopBar.getText(), teamName);
 
-
         //Click on 'Player Stats' sub-tab
         wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(playerStatsSubTabAccessibilityId)));
         MobileElement playerStatsSubPage = (MobileElement) driver.findElementByAccessibilityId(playerStatsSubTabAccessibilityId);
         playerStatsSubPage.click();
 
         //Establish this identifier at run time as it will include our test data
-        String playerStatSubTabActualResultsXpath = "//android.widget.TextView[@text='" + playerStatsSubTabExpectedResults + "']";
+        String playerStatSubTabActualResultsXpath = "//android.widget.TextView[@text='" + expectedPlayerName + "']";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(playerStatSubTabActualResultsXpath)));
         MobileElement playerStatSubTabActualResults = (MobileElement) driver.findElementByXPath(playerStatSubTabActualResultsXpath);
 
         //Verify our expected result from this page - A player that plays for this team
-        Assert.assertEquals(playerStatSubTabActualResults.getText(), playerStatsSubTabExpectedResults);
+        Assert.assertEquals(playerStatSubTabActualResults.getText(), expectedPlayerName);
 
         //Go back to previous page
         wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(backButtonAccessibilityId)));
@@ -134,6 +131,8 @@ public class FindTeam extends BaseTest {
 
         System.out.println("Done Find Team Test");
 
+        //Reset the app for subsequent tests will work
+        driver.resetApp();
 
     }
 }
