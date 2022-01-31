@@ -39,8 +39,8 @@ public class FindTeam extends BaseTest {
     @Test(dataProviderClass = CSVDataProvider.class, dataProvider = "findTeamTestData")
     public void findTeam(Map<String,String> dataMap) throws InterruptedException {
 
-        String teamName = dataMap.get("teamName");
-        String expectedPlayerName = dataMap.get("playerName");
+        String teamName = dataMap.get("value1");
+        String expectedPlayerName = dataMap.get("value2");
 
         System.out.println("Starting Find Team Test with Team Name: " + teamName + " and expected Player Name: " + expectedPlayerName);
 

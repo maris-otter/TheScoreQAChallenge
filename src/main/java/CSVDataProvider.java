@@ -15,7 +15,7 @@ import java.util.Map;
 public class CSVDataProvider {
 
 
-    //Grab each row in CSV, convert to a list of maps<String, String> and return
+    //Grab each row in CSV, convert to a list of hash maps<String, String> and return
     public static List<Map<String, String>> getData(String filePath) {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         ;
@@ -26,10 +26,10 @@ public class CSVDataProvider {
             BufferedReader br = new BufferedReader(inputStreamReader);
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 Map<String, String> map = new HashMap<>();
-                String key = line.split(",")[0];
-                String value = line.split(",")[1];
-                map.put("teamName", key);
-                map.put("playerName", value);
+                String value1 = line.split(",")[0];
+                String value2 = line.split(",")[1];
+                map.put("value1", value1);
+                map.put("value2", value2);
                 list.add(map);
             }
             br.close();
