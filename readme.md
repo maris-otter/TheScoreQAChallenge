@@ -4,17 +4,17 @@ This project contains Automated tests for the Score Android App. It is build usi
 
 # Prerequisites
 
-* Java (8)
-* Maven (3.8.4)
-* Appium
-* Local or Virtual Android device connected to Appium
+* Java (tested with version 8)
+* Maven (tested with version 3.8.4)
+* Appium (tested with version 1.22.0)
+* Local or Virtual Android device connected to Appium (project has been tests with Android 11 and 12 devices)
 
 # Setup Steps
 
-* Ensure appium is running and has an android device connected
+* Ensure appium is running locally and has an android device connected
 * Clone the git repository to a local directory
 * Setup your Test Data (see Test Data section/Test Spec)
-* Go into root of the project and execute the following maven command:
+* In command line, go into root of the project and execute either of the following maven commands:
   * mvn clean compile test
   * mvn clean compile test -Dinstallapp (If target device does not have the Score app)
 * Maven Surefire-plugin is added to the project so that tests will execute after above commands
