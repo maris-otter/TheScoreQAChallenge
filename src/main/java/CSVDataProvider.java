@@ -1,6 +1,4 @@
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;

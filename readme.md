@@ -17,10 +17,11 @@ This project contains Automated tests for the Score Android App. It is build usi
 * Go into root of the project and execute the following maven command:
   * mvn clean compile test
   * mvn clean compile test -Dinstallapp (If target device does not have the Score app)
+* Maven Surefire-plugin is added to the project so that tests will execute after above commands
 
 This will run the standard suite of tests (outlined in tests.xml and Test spec file TestSpec.md). 
 
-# Additional Command Line Paramters
+## Additional Command Line Parameters
  * -Dinstallapp : This will install the score apk (/src/main/resources/theScore_v21.16.0.apk) if the testing device does not already have the application
 
 # Test Data
@@ -33,7 +34,7 @@ This will run the standard suite of tests (outlined in tests.xml and Test spec f
 
 A test report is generated via maven surefire-reports and can be viewed in /target/surefire-reports/TestSuite1 folder
 
-# Creating New Tests
+## Creating New Tests
 
 This Test Project is built to be scalable for  new tests. The steps to create a new test, similar to FindTeam, is as follows:
  * Create a new Java class under src/main/java, extending BaseClass.java (so that you can use the same appium driver)

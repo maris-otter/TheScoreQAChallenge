@@ -5,11 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class FindTeam extends BaseTest {
@@ -32,9 +29,9 @@ public class FindTeam extends BaseTest {
 
 
     /* Test Method to find a team from the main score landing page
-     * Test Data Required:
-     *      String: Team name
-     *      String: Expected result on the player stats Sub tab - Player name
+     * Test Data Required: Hashmap
+     *      Value1: Team name (String)
+     *      Value2 : Expected result on the player stats Sub tab - Player name (String)
      */
     @Test(dataProviderClass = CSVDataProvider.class, dataProvider = "findTeamTestData")
     public void findTeam(Map<String,String> dataMap) throws InterruptedException {
